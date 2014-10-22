@@ -13,6 +13,7 @@ container：
 input：总表上的人员信息，mark condition （有特殊房间要求的家庭，个人）, 空为随机
 
 Requirement:
+
 1. 按性别随机分配房间，从6人间开始recursiv
   - 如果年龄 45岁 以上从4人间开始recursiv
   - 某人要求要某种类型的房间 （非家庭，也不需要和谁在一起，只要求房间类型）
