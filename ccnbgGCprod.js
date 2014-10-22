@@ -1,6 +1,8 @@
 
-/*  Copyright 2014.9.18  Jing Tang
- *  
+/*  Copyright 2014.9.18  Jing Tang  tangjing725@ccnbg.org
+ *  此程序是利用google app script api 和 google drive service 实现的营会分房程序。
+ *  在通知原作者的前提下，你可以使用传播以及修改本程序，但禁止用于任何商业用途。
+ *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -13,7 +15,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. 
- 
+ *
  *  For more information on using the Spreadsheet API, see
  *  https://developers.google.com/apps-script/service_spreadsheet
  */
