@@ -1,5 +1,5 @@
-
-/*  Copyright 2014.9.18  Jing Tang  tangjing725@ccnbg.org
+/*
+ *  Copyright 2014.9.18  Jing Tang  tangjing725@ccnbg.org
  *  此程序是利用google app script api 和 google drive service 实现的营会分房程序。
  *  在通知原作者的前提下，你可以使用传播以及修改本程序，但禁止用于任何商业用途。
  *
@@ -18,10 +18,10 @@
  *
  *  For more information on using the Spreadsheet API, see
  *  https://developers.google.com/apps-script/service_spreadsheet
+ *
  */
 
 
-//test
 function readRows() {
   var sheet = SpreadsheetApp.getActiveSheet();
   var rows = sheet.getDataRange();
@@ -34,7 +34,6 @@ function readRows() {
   }
 };
 
-//
 function generateGroupOverview() {
   var groupOverviewId = "1q_yf_eYfpsd0xdetYmJjhN9GORdw8KtW4af4GEFYJl0";
   var groupOverviewSheet = SpreadsheetApp.openById(groupOverviewId).getActiveSheet();
@@ -104,14 +103,15 @@ function generateGroupOverview() {
   
 }
 
-//migrate group info
+
 function copyGroupInfo(){
+  clearGroupInfo();
+
   var xiaolongDocId = '1FoIpNasbg_8XkkZ5hCAfFMdAP4SBGimWpubmutHOnhs';
   var xiaolongSheet = SpreadsheetApp.openById(xiaolongDocId).getActiveSheet();
   var groupData = xiaolongSheet.getDataRange().getValues();
   
   var registerSheet = SpreadsheetApp.getActiveSheet();
-  
   var regData = registerSheet.getDataRange().getValues();
   var n = 1;
   for (var i = 1; i <= regData.length - 1; i++) {
@@ -408,7 +408,7 @@ function generateNamecard() {
 
 }
 
-// JUST CLEAR
+// JUST CLEAR room assginment
 function justClear() {
   var registerSheet = SpreadsheetApp.getActiveSheet();
 
@@ -416,6 +416,17 @@ function justClear() {
 
   clearAssignedRange.clear();
 }
+
+
+// JUST CLEAR group info
+function clearGroupInfo() {
+  var registerSheet = SpreadsheetApp.getActiveSheet();
+
+  var clearGroupRange = registerSheet.getRange("O2:P500");
+
+  clearGroupRange.clear();
+}
+
 
 // clear the column results from last assignment
 function clearRegisterAssigned(registerSheet) {
@@ -1049,9 +1060,29 @@ function onOpen() {
       functionName : "justClear"
     },
     null, 
+     {
+      name : "Clear group info",
+      functionName : "clearGroupInfo"
+    },
+    null, 
     {
     name : "分房（先家庭后随机）",
     functionName : "runAssignRoomWithPriority"
+    },
+    null, 
+    {
+    name : "分房（按报名顺序）",
+    functionName : "runAssignRoom"
+    },
+     null, 
+    {
+    name : "导入小组信息",
+    functionName : "copyGroupInfo"
+    },
+     null, 
+    {
+    name : "生成小组预览",
+    functionName : "generateGroupOverview"
     },
     null, 
     {
@@ -1062,13 +1093,7 @@ function onOpen() {
     {
     name : "find Duplicated name",
     functionName : "findDuplicated"
-    },
-     null, 
-    {
-    name : "生成小组预览",
-    functionName : "generateGroupOverview"
     }
-    
   ];
-  spreadsheet.addMenu("uno&tommy only", entries);
+  spreadsheet.addMenu("分房菜单", entries);
 };
