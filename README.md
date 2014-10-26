@@ -39,3 +39,10 @@ output:
 - overview表上会显示房间及床铺占用情况（分到房间的人名会被填上）
 - 读取总表上的信息，批量生成名卡，pdf格式，便于打印
 
+Resources:
+----------
+* 分房程序模板以及源代码：https://github.com/sijitang/ccnbg
+* API: https://developers.google.com/apps-script/reference/spreadsheet/
+* Limitation: https://developers.google.com/apps-script/guides/services/quotas
+* 2014年南德福音营数据统计：https://sites.google.com/site/gospelcampstatistics/
+
