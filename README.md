@@ -1,12 +1,10 @@
 营会分房程序2.0
 =============
 
-/*
- *  Copyright 2014.9.18  Jing Tang <tangjing725@ccnbg.org>
- *  GNU General Public License <http://www.gnu.org/licenses/>.
- *  本程序是利用google app script api 和 google drive service 实现的营会分房程序。
- *  在通知原作者的前提下，你可以使用传播以及修改本程序，但禁止用于任何商业用途。
- */
+//Copyright 2014.9.18  Jing Tang <tangjing725@ccnbg.org>
+//GNU General Public License <http://www.gnu.org/licenses/>.
+//本程序是利用google app script api 和 google drive service 实现的营会分房程序。
+//在通知原作者的前提下，你可以使用传播以及修改本程序，但禁止用于任何商业用途。
 
 
 Specification:
