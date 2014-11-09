@@ -1074,6 +1074,11 @@ function onOpen() {
     name : "分房（按报名顺序）",
     functionName : "runAssignRoom"
     },
+    null,
+      {
+    name : "生成名卡",
+    functionName : "generateNamecard"
+    },
      null, 
     {
     name : "导入小组信息",
