@@ -46,7 +46,7 @@ Specification:
 
 Resources:
 ----------
-
+* 视频教程： http://youtu.be/H1VIQNxsqdg
 * 分房程序模板以及源代码：https://github.com/sijitang/ccnbg
 * API: https://developers.google.com/apps-script/reference/spreadsheet/
 * Limitation: https://developers.google.com/apps-script/guides/services/quotas
