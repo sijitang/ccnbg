@@ -22,7 +22,7 @@
  */
 
 //NOTICE
-//#Line: 411, replace with your email address before you test
+//#Line: 265和411, replace with your email address before you test
 
 
 function readRows() {
@@ -261,7 +261,8 @@ function generateEmptyNamecard() {
 
   var pdf = newFile.getAs("application/pdf");
   Logger.log("pdf created");
-
+  
+  //replace with your email address
   var emailTo = 'xxxx@gmail.com';
   var subject = 'test sending pdf using google app script';
   var message = "Please see attached";
@@ -408,7 +409,7 @@ function generateNamecard() {
   Logger.log("pdf created");
 
   // replace your email here
-  var emailTo = 'tangjing725@gmail.com';
+  var emailTo = 'xxxx@gmail.com';
   var subject = 'test sending pdf using google app script';
   var message = "Please see attached";
   MailApp.sendEmail(emailTo, subject, message, {attachments:pdf});
