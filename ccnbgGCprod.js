@@ -21,6 +21,9 @@
  *
  */
 
+//NOTICE
+//#Line: 411, replace with your email address before you test
+
 
 function readRows() {
   var sheet = SpreadsheetApp.getActiveSheet();
@@ -35,7 +38,9 @@ function readRows() {
 };
 
 function generateGroupOverview() {
-  var groupOverviewId = "1q_yf_eYfpsd0xdetYmJjhN9GORdw8KtW4af4GEFYJl0";
+  //file: groupOverview ID
+  var groupOverviewId = "1hc47xmxLMJ9-TGGLJ6Vsaq651Cg_m0-GqHKghG58z7A";
+  
   var groupOverviewSheet = SpreadsheetApp.openById(groupOverviewId).getActiveSheet();
   groupOverviewSheet.clear();
   var registerSheet = SpreadsheetApp.getActiveSheet();
@@ -106,8 +111,8 @@ function generateGroupOverview() {
 
 function copyGroupInfo(){
   clearGroupInfo();
-
-  var xiaolongDocId = '1FoIpNasbg_8XkkZ5hCAfFMdAP4SBGimWpubmutHOnhs';
+  //file 小龙分组 ID
+  var xiaolongDocId = '1qbbQ4PIxAWDrL61N1xx3st9uQvs9Z5089HinlG84plU';
   var xiaolongSheet = SpreadsheetApp.openById(xiaolongDocId).getActiveSheet();
   var groupData = xiaolongSheet.getDataRange().getValues();
   
@@ -155,12 +160,14 @@ function appendContentInTableCell(body, cell) {
 }
 
 function generateEmptyNamecard() {
+ //file newCardTemplate ID 
+ var templateDocID = "1jnTdlPyu-ZieOl-3U6Dt_MxVjPR7HV9AUDHxz76_wto";//copyOfTemplate hash
   
- var templateDocID = "1zR6DwTnYCnaO3_dTjNPgPUAu4mqZrxUMad3cDHN2aak";//copyOfTemplate hash
  var templateDoc = DocumentApp.openById(templateDocID);
  var templateBody = templateDoc.getBody();
  // generated name card file
- var finalCardsId = "1yg0tXg2FOqNhbnLeP8AkMU6k_IWWbfi5Wr6xcAj8qJI";
+  //file: finalCards ID
+ var finalCardsId = "1-D-DEgtQRTmzDZ8H8KYQJqAhFh5SQ-34mq-GBbfsP_0";
  var newDoc = DocumentApp.openById(finalCardsId);
    
   var body = newDoc.getBody();
@@ -255,7 +262,7 @@ function generateEmptyNamecard() {
   var pdf = newFile.getAs("application/pdf");
   Logger.log("pdf created");
 
-  var emailTo = 'tangjing725@gmail.com';
+  var emailTo = 'xxxx@gmail.com';
   var subject = 'test sending pdf using google app script';
   var message = "Please see attached";
   MailApp.sendEmail(emailTo, subject, message, {attachments:pdf});
@@ -269,13 +276,13 @@ function generateNamecard() {
  var regData = registerSheet.getDataRange().getValues();
  
  //template  
- var templateDocID = "1zR6DwTnYCnaO3_dTjNPgPUAu4mqZrxUMad3cDHN2aak";//copyOfTemplate hash
+ var templateDocID = "1jnTdlPyu-ZieOl-3U6Dt_MxVjPR7HV9AUDHxz76_wto";//copyOfTemplate hash
  var templateDoc = DocumentApp.openById(templateDocID);
  var templateBody = templateDoc.getBody();
  
   
  // generated name card file
- var finalCardsId = "1yg0tXg2FOqNhbnLeP8AkMU6k_IWWbfi5Wr6xcAj8qJI";
+ var finalCardsId = "1-D-DEgtQRTmzDZ8H8KYQJqAhFh5SQ-34mq-GBbfsP_0";
  var newDoc = DocumentApp.openById(finalCardsId);
    
   var body = newDoc.getBody();
@@ -400,6 +407,7 @@ function generateNamecard() {
   var pdf = newFile.getAs("application/pdf");
   Logger.log("pdf created");
 
+  // replace your email here
   var emailTo = 'tangjing725@gmail.com';
   var subject = 'test sending pdf using google app script';
   var message = "Please see attached";
@@ -437,7 +445,8 @@ function clearRegisterAssigned(registerSheet) {
 
 // clear room overview and assginee and then copy new room overview from template
 function clearRoomOverview(roomSheet) {
-   var roomTemplateId = '1fY8ZImQseZMVCpaG3kdnXiyFhLTLqlHe3O4Gne3t7fE';
+  //file: roomTemplate ID
+   var roomTemplateId = '1nRkuJkk7ng-Hi2NsgwXcQestJBre9LqC4DbPPnr5Yfw';
    var roomTemplateSheet = SpreadsheetApp.openById(roomTemplateId).getActiveSheet();
    var rangetoCopy = roomTemplateSheet.getRange("A1:L150").getValues()
    
@@ -625,13 +634,13 @@ function runAssignRoomWithPriority() {
   
   var regData = registerSheet.getDataRange().getValues();
   
-  
-  var roomDocId = '1CqkBmh1VaF1hrb4AQIH-vdHpX1sky8x7tVuPN3ZvOww';
+  //file: roomOverview ID
+  var roomDocId = '11aQlhlpKaTZR-TL_6c3lQThlLeFa39irXd5DxLqyEak';
   var roomSheet = SpreadsheetApp.openById(roomDocId).getActiveSheet()
   clearRoomOverview(roomSheet)
   
-  
-  var theRestDocId = '1ugye1BdmE5nHyKMm7dnB-Zvf1SSd8y7OgpiprImKpXM';
+  //file warteList ID
+  var theRestDocId = '1s6hO_052g6ZzY0Sv7p4MNOKecpQ_9CO4_jcOI8vbEFU';
   var unassignedSheet = SpreadsheetApp.openById(theRestDocId).getActiveSheet();
   unassignedSheet.clearContents();
   unassignedSheet.appendRow(['总表上的行号','name', 'age','gender','faith','work?','mobile','email','note','','','','Fellowship']);
@@ -755,12 +764,12 @@ function runAssignRoom() {
   var regData = registerSheet.getDataRange().getValues();
   
   
-  var roomDocId = '1CqkBmh1VaF1hrb4AQIH-vdHpX1sky8x7tVuPN3ZvOww';
+  var roomDocId = '11aQlhlpKaTZR-TL_6c3lQThlLeFa39irXd5DxLqyEak';
   var roomSheet = SpreadsheetApp.openById(roomDocId).getActiveSheet()
   clearRoomOverview(roomSheet)
   
   
-  var theRestDocId = '1ugye1BdmE5nHyKMm7dnB-Zvf1SSd8y7OgpiprImKpXM';
+  var theRestDocId = '1s6hO_052g6ZzY0Sv7p4MNOKecpQ_9CO4_jcOI8vbEFU';
   var unassignedSheet = SpreadsheetApp.openById(theRestDocId).getActiveSheet();
   unassignedSheet.clearContents();
   unassignedSheet.appendRow(['rowNr','name','age','gender','faith','work','mobile','email','note','','','','Fellowship']);
@@ -1074,11 +1083,6 @@ function onOpen() {
     name : "分房（按报名顺序）",
     functionName : "runAssignRoom"
     },
-    null,
-      {
-    name : "生成名卡",
-    functionName : "generateNamecard"
-    },
      null, 
     {
     name : "导入小组信息",
@@ -1088,6 +1092,11 @@ function onOpen() {
     {
     name : "生成小组预览",
     functionName : "generateGroupOverview"
+    },
+    null,
+      {
+    name : "生成名卡",
+    functionName : "generateNamecard"
     },
     null, 
     {
