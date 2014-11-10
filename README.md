@@ -8,7 +8,7 @@
 # 在通知原作者的前提下，你可以使用传播以及修改本程序，但禁止用于任何商业用途。
 ```
 
-```
+
 Resources:
 ----------
 * 视频教程： http://youtu.be/H1VIQNxsqdg
@@ -16,7 +16,7 @@ Resources:
 * API: https://developers.google.com/apps-script/reference/spreadsheet/
 * Limitation: https://developers.google.com/apps-script/guides/services/quotas
 * 2014年南德福音营数据统计：https://sites.google.com/site/gospelcampstatistics/
-```
+
 
 Specification:
 --------------
