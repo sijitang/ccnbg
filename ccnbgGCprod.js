@@ -70,6 +70,10 @@ function generateGroupOverview() {
   //now write into group overview sheet
   for(n = 1; n< 32; n++) {
     var gmapVal = gmap[n];
+    if(!gmapVal){
+      Logger.log("end!, no group: "+n);
+      return 
+    }
     groupOverviewSheet.appendRow(['第'+n+'组','性别','信仰','团契','房间']);
     var rw  =  groupOverviewSheet.getLastRow();
     var header = groupOverviewSheet.getRange(rw, 1,1,5);
