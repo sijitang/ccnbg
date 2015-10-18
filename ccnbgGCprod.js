@@ -171,11 +171,14 @@ function generateEmptyNamecard() {
  var templateBody = templateDoc.getBody();
  // generated name card file
   //file: finalCards ID
- var finalCardsId = "1-D-DEgtQRTmzDZ8H8KYQJqAhFh5SQ-34mq-GBbfsP_0";
- var newDoc = DocumentApp.openById(finalCardsId);
-   
+ //var finalCardsId = "1-D-DEgtQRTmzDZ8H8KYQJqAhFh5SQ-34mq-GBbfsP_0";
+ //var newDoc = DocumentApp.openById(finalCardsId);
+  var newDoc = DocumentApp.create('emptyCards');
+  var newDocId = newDoc.getId();
+  
+  Logger.log("newDocId: "+newDocId);
   var body = newDoc.getBody();
-  body.clear();
+  //body.clear();
   body.setMarginTop(10);
   body.setMarginLeft(55);
   body.setMarginRight(20);
@@ -203,7 +206,7 @@ function generateEmptyNamecard() {
     
       
       
-      copyBody.replaceText('%ch%', '教会:');
+    copyBody.replaceText('%ch%', '教会:');
       
      
     copyBody.replaceText('%rmn%', '');
@@ -261,19 +264,22 @@ function generateEmptyNamecard() {
   newDoc.saveAndClose();
   Logger.log("new Doc saved");
 
-  var newFile = DocsList.getFileById(finalCardsId);
+  var newFile = DriveApp.getFileById(newDocId);
 
   var pdf = newFile.getAs("application/pdf");
   Logger.log("pdf created");
   
   //replace with your email address
-  var emailTo = 'xxxx@gmail.com';
-  var subject = 'test sending pdf using google app script';
+  var emailTo = 'xiao.liu2011@googlemail.com';
+  //var emailTo = 'tangjing725@gmail.com';
+  var subject = 'empty card has been generated';
   var message = "Please see attached";
   MailApp.sendEmail(emailTo, subject, message, {attachments:pdf});
   Logger.log("mail sent");
+  newFile.setTrashed(true)
 
 }
+
 
 function generateNamecard() {
   
@@ -287,11 +293,14 @@ function generateNamecard() {
  
   
  // generated name card file
- var finalCardsId = "1-D-DEgtQRTmzDZ8H8KYQJqAhFh5SQ-34mq-GBbfsP_0";
- var newDoc = DocumentApp.openById(finalCardsId);
-   
+ //var finalCardsId = "1-D-DEgtQRTmzDZ8H8KYQJqAhFh5SQ-34mq-GBbfsP_0";
+ //var newDoc = DocumentApp.openById(finalCardsId);
+  var newDoc = DocumentApp.create('FinalCard');
+  var newDocId = newDoc.getId();
+  Logger.log("newDocId: "+newDocId);
+
   var body = newDoc.getBody();
-  body.clear();
+  //body.clear();
   body.setMarginTop(10);
   body.setMarginLeft(55);
   body.setMarginRight(20);
@@ -301,125 +310,130 @@ function generateNamecard() {
   var copyBody;
   var cell_left;
   var cell_right;
-  var ar = [];
   var table = body.appendTable();
   table.setBorderWidth(0.5);
-
-   // parse register form
-  for (var i = 1; i <= regData.length - 1; i++) {
   
+  var buffer = [];
+   // parse register form
+  for (var i = 1; i <= regData.length; i++) {
+    Logger.log(i+" - "+regData.length+" - "+buffer.length)
+    
+      
+    if(buffer.length == 2 || (buffer.length == 1 && i== regData.length)){
+      
+      Logger.log("build table row "+(i+1)+" and two cells")
+      Logger.log("append left and right");
+      var tableRow = table.appendTableRow();
+      tableRow.appendTableCell('');
+      tableRow.appendTableCell('');
+      tableRow.setMinimumHeight(150);
+      
+      cell_left= tableRow.getCell(0);
+      cell_right= tableRow.getCell(1);
+      
+      cell_left.setWidth(249.48);
+      cell_right.setWidth(249.48);
+      
+      
+      cell_left.setPaddingBottom(0);
+      cell_left.setPaddingLeft(0);
+      cell_left.setPaddingRight(0);
+      cell_left.setPaddingTop(0);
+      
+      cell_right.setPaddingBottom(0);
+      cell_right.setPaddingLeft(0);
+      cell_right.setPaddingRight(0);
+      cell_right.setPaddingTop(0);
+      
+      var left = buffer[0]
+      var right = buffer[1]? buffer[1] : buffer[0]
+      //Logger.log("left copyBody: "+left.getText());
+      //Logger.log("right copyBody "+right.getText())
+      appendContentInTableCell(left, cell_left);
+      appendContentInTableCell(right,cell_right);
+      
+      buffer = []
+      
+      
+    } 
+    
     var row = regData[i];
     
-    var username = row[0];
-    var age = row[1];
-    var gender = row[2];
-    var church = row[11];
-    var roomNr = row[13];
-    var group = row[14];
-    var groupLeader = row[15];
-    
-    Logger.log(i+" - "+username+" - "+roomNr +" - "+church+" - "+group)
-    
-   
-    //copy template on temp
-    Logger.log("copy templateBody to copyBody")
- 
-    //copyContent(templateBody, copyBody)
-    copyBody = templateBody.copy();
-    // replace text from data in register form
-    if(username != '' && age > 2) {
-      copyBody.replaceText('%na%', username.trim());
-      if(roomNr == '') {
-        copyBody.replaceText('%rmn%', '日营');
-      } else {
-        copyBody.replaceText('%rmn%', roomNr);
-      }
-      
-      if(church == '') {
-        copyBody.replaceText('%ch%', '');
-      } else {
-        copyBody.replaceText('%ch%', '教会: '+church.trim());
-      }
-      
-      if(group == '') {
-         copyBody.replaceText('%gr%', '');
-      } else {
-        copyBody.replaceText('%gr%', '小组: '+group);
-      }
+    if(i < regData.length){
+      var username = row[0];
+      var age = row[1];
+      var gender = row[2];
+      var church = row[11];
+      var roomNr = row[13];
+      var group = row[14];
+      var groupLeader = row[15];
       
       
-      if(groupLeader == '') {
-         copyBody.replaceText('%gl%', '');
-      } else {
-         copyBody.replaceText('%gl%', '(组长)');
-      }
+      // replace text from data in register form
+      if(username != '' && age > 2) {
+        Logger.log("namecard: "+i+" - "+username+" - "+roomNr +" - "+church+" - "+group)
+        
+        //copy template on temp
+        Logger.log("copy templateBody to copyBody")
+        
+        //copyContent(templateBody, copyBody)
+        copyBody = templateBody.copy();
+        
+        copyBody.replaceText('%na%', username.trim());
+        if(roomNr == '') {
+          copyBody.replaceText('%rmn%', '日营');
+        } else {
+          copyBody.replaceText('%rmn%', roomNr);
+        }
+        
+        if(church == '') {
+          copyBody.replaceText('%ch%', '');
+        } else {
+          copyBody.replaceText('%ch%', '教会: '+church.trim());
+        }
+        
+        if(group == '') {
+          copyBody.replaceText('%gr%', '');
+        } else {
+          copyBody.replaceText('%gr%', '小组: '+group);
+        }
+        
+        
+        if(groupLeader == '') {
+          copyBody.replaceText('%gl%', '');
+        } else {
+          copyBody.replaceText('%gl%', '(组长)');
+        }
+        
+        buffer.push(copyBody);
+        //copyBody.clear()
+        Logger.log("After push "+buffer.length);
 
-    
-     
-      //build table , put data in it and insert it in finalCards doc
-      if((i+1)%2 == 0){
-        Logger.log("left copyBody "+copyBody.getText()+" saved in temp");
-        temp = copyBody.copy(); // important move :) body must be first detached then assigned
-        Logger.log("hoho: "+temp.getText());
-
-      } else {
-        Logger.log("left copyBody: "+temp.getText());
-        Logger.log("right copyBody "+copyBody.getText())
-        ar.push(i+1);
-        var idx = ar.indexOf(i+1);
-        Logger.log("build table row "+(i+1)+" and two cells")
-        Logger.log("append left and right");
-        var tableRow = table.appendTableRow();
-        tableRow.appendTableCell('');
-        tableRow.appendTableCell('');
-        tableRow.setMinimumHeight(150);
-        
-        cell_left= table.getCell(idx,0);
-        cell_right= table.getCell(idx,1);
-        
-        cell_left.setWidth(249.48);
-        cell_right.setWidth(249.48);
-        
-        
-        cell_left.setPaddingBottom(0);
-        cell_left.setPaddingLeft(0);
-        cell_left.setPaddingRight(0);
-        cell_left.setPaddingTop(0);
-        
-        cell_right.setPaddingBottom(0);
-        cell_right.setPaddingLeft(0);
-        cell_right.setPaddingRight(0);
-        cell_right.setPaddingTop(0);
-        
-       
-       
-        appendContentInTableCell(temp, cell_left);
-        appendContentInTableCell(copyBody,cell_right);
-        
-        //copyContent(temp, cell_left);
-        //copyContent(copyBody,cell_right);
-      }
-    } 
+      } 
+    }
   }
-  Logger.log(ar);
   Logger.log("process finished, doc is saving");
 
   newDoc.saveAndClose();
   Logger.log("new Doc saved");
 
-  var newFile = DocsList.getFileById(finalCardsId);
+  var newFile = DriveApp.getFileById(newDocId);
 
-  var pdf = newFile.getAs("application/pdf");
-  Logger.log("pdf created");
-
+  var pdf = newFile.getAs(MimeType.PDF);
+  
+  Logger.log("new doc coverted to pdf");
+ 
   // replace your email here
-  var emailTo = 'xxxx@gmail.com';
-  var subject = 'test sending pdf using google app script';
+  var emailTo = 'xiao.liu2011@googlemail.com';
+  //var emailTo = 'tangjing725@gmail.com';
+  var subject = 'Your card has been generated';
   var message = "Please see attached";
-  MailApp.sendEmail(emailTo, subject, message, {attachments:pdf});
-  Logger.log("mail sent");
-
+  MailApp.sendEmail(emailTo, subject, message, {attachments:[pdf]});
+  Logger.log("mail sent with pdf attachment");
+  newFile.setTrashed(true)
+  Logger.log("new doc trashed");
 }
+
 
 // JUST CLEAR room assginment
 function justClear() {
@@ -451,7 +465,7 @@ function clearRegisterAssigned(registerSheet) {
 // clear room overview and assginee and then copy new room overview from template
 function clearRoomOverview(roomSheet) {
   //file: roomTemplate ID
-   var roomTemplateId = '1nRkuJkk7ng-Hi2NsgwXcQestJBre9LqC4DbPPnr5Yfw';
+   var roomTemplateId = '1ivyWhOXSzzFGyPlpWKyNSwjgIiGhYkD7KxmfRCLYO_c';
    var roomTemplateSheet = SpreadsheetApp.openById(roomTemplateId).getActiveSheet();
    var rangetoCopy = roomTemplateSheet.getRange("A1:L150").getValues()
    
@@ -1084,15 +1098,19 @@ function onOpen() {
     functionName : "runAssignRoomWithPriority"
     },
     null, 
+    
     {
     name : "分房（按报名顺序）",
     functionName : "runAssignRoom"
     },
-     null, 
+    /* 
+    null, 
+    
     {
     name : "导入小组信息",
     functionName : "copyGroupInfo"
     },
+    */
      null, 
     {
     name : "生成小组预览",
@@ -1102,6 +1120,11 @@ function onOpen() {
       {
     name : "生成名卡",
     functionName : "generateNamecard"
+    },
+    null,
+     {
+    name : "生成空白名卡",
+    functionName : "generateEmptyNamecard"
     },
     null, 
     {
